@@ -3,6 +3,10 @@ Rails.application.routes.draw do
     sessions:      'staff/sessions',
     registrations: 'staff/registrations'
   }
+  devise_for :administrators, path: 'admin', controllers: {
+    sessions:      'admin/sessions',
+    registrations: 'admin/registrations'
+  }
   namespace :staff do
     root "top#index"
   end

@@ -50,7 +50,7 @@ gem "kaminari"
 gem "date_validator"
 gem "valid_email2"
 gem "nokogiri"
-gem "devise"
+gem "sorcery"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

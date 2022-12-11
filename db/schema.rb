@@ -17,7 +17,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_193233) do
   create_table "administrators", force: :cascade do |t|
     t.boolean "suspended", default: false, null: false
     t.string "email", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "crypted_password"
+    t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index "lower((email)::text)", name: "index_administrators_on_LOWER_email", unique: true
@@ -32,7 +33,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_193233) do
     t.date "end_date"
     t.boolean "suspended", default: false, null: false
     t.string "email", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "crypted_password"
+    t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index "lower((email)::text)", name: "index_staff_members_on_LOWER_email", unique: true

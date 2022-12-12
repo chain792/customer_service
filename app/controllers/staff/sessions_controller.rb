@@ -1,4 +1,4 @@
-class Staff::SessionsController < ApplicationController
+class Staff::SessionsController < Staff::Base
   def new
     @form = Staff::LoginForm.new
   end
@@ -8,23 +8,21 @@ class Staff::SessionsController < ApplicationController
     staff_member = StaffMember.authenticate(@form.email, @form.password)
     if Staff::Authenticator.new(staff_member).authenticate
       if staff_member.suspended?
-        flash.now.alert = "アカウントが停止されています。"
+        flash.now[:alert] = "アカウントが停止されています。"
         render "new", status: :unprocessable_entity
       else
-        flash.notice = "ログインが成功しました。"
         auto_login(staff_member)
-        redirect_to staff_root_path
+        redirect_to staff_root_path, notice: "ログインしました。"
       end
     else
-      flash.now.alert = "ログインが失敗しました。"
+      flash.now[:alert] = "メールアドレスまたはパスワードが正しくありません。"
       render "new", status: :unprocessable_entity
     end
   end
 
   def destroy
     logout
-    flash.notice = "ログアウトしました。"
-    redirect_to staff_root_path
+    redirect_to staff_root_path, notce: "ログアウトしました。"
   end
 
   private 

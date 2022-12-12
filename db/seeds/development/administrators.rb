@@ -1,4 +1,10 @@
 Administrator.create!(
   email: "hanako@example.com",
-  password: "footer"
+  password: "password"
+)
+
+Administrator.create!(
+  email: "hanao@example.com",
+  password: "password",
+  suspended: true
 )

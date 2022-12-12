@@ -1,10 +1,13 @@
 <header>
   <span class="logo-mark">BAUKIS2</span>
+  <% flash.each do |key, value| %>
+    <%= content_tag(:span, value, class: key) %>
+  <% end %>
   <%=
-    if administrator_signed_in?
-      link_to "ログアウト", :destroy_administrator_session, method: :delete
+    if logged_in?
+      link_to "ログアウト", :admin_session, data: { turbo_method: :delete }
     else
-      link_to "ログイン", :new_administrator_session
+      link_to "ログイン", :admin_login
     end
   %>
 </header>

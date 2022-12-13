@@ -11,7 +11,7 @@ class Staff::SessionsController < Staff::Base
         flash.now[:alert] = "アカウントが停止されています。"
         render "new", status: :unprocessable_entity
       else
-        auto_login(staff_member)
+        session[:staff_member_id] = staff_member.id
         redirect_to staff_root_path, notice: "ログインしました。"
       end
     else
@@ -21,8 +21,8 @@ class Staff::SessionsController < Staff::Base
   end
 
   def destroy
-    logout
-    redirect_to staff_root_path, notce: "ログアウトしました。"
+    session.delete(:staff_member_id)
+    redirect_to staff_root_path, notice: "ログアウトしました。"
   end
 
   private 

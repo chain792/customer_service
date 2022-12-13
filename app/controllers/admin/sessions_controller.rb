@@ -11,7 +11,7 @@ class Admin::SessionsController < Admin::Base
         flash.now[:alert] = "アカウントが停止されています。"
         render "new", status: :unprocessable_entity
       else
-        auto_login(administrator)
+        session[:administrator_id] = administrator.id
         redirect_to admin_root_path, notice: "ログインしました。"
       end
     else
@@ -21,8 +21,8 @@ class Admin::SessionsController < Admin::Base
   end
 
   def destroy
-    logout
-    redirect_to admin_root_path, notce: "ログアウトしました。"
+    session.delete(:administrator_id)
+    redirect_to admin_root_path, notice: "ログアウトしました。"
   end
 
   private 

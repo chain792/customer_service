@@ -4,7 +4,7 @@
     <%= content_tag(:span, value, class: key) %>
   <% end %>
   <%=
-    if logged_in?
+    if current_staff_member
       link_to "ログアウト", :staff_session, data: { turbo_method: :delete }
     else
       link_to "ログイン", :staff_login

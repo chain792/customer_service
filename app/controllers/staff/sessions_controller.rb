@@ -1,4 +1,6 @@
 class Staff::SessionsController < Staff::Base
+  skip_before_action :authorize
+
   def new
     @form = Staff::LoginForm.new
   end
@@ -12,6 +14,7 @@ class Staff::SessionsController < Staff::Base
         render "new", status: :unprocessable_entity
       else
         session[:staff_member_id] = staff_member.id
+        session[:last_access_time] = Time.current
         redirect_to staff_root_path, notice: "ログインしました。"
       end
     else

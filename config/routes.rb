@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       root "top#index"
       get "login" => "sessions#new"
       resource :session, only: [:create,:destroy]
+      resources :staff_members, except: [:show]
     end
   end
 

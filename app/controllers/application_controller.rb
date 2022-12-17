@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   class IpAddressRejected < ActionController::ActionControllerError; end
 
   include ErrorHandlers if Rails.env.production?
+  include FormHelper
 
   private
 

@@ -4,14 +4,19 @@
 <div>
   <%= f.label :email, "メールアドレス", class: "required" %>
   <%= f.email_field :email, size: 32, required: true %>
+  <%= error_messages_for(f, :email) %>
 </div>
 <div>
   <%= f.label :family_name, "氏名", class: "required" %>
   <%= f.text_field :family_name, required: true %>
   <%= f.text_field :given_name, required: true %>
+  <%= error_messages_for(f, :family_name) %>
+  <%= error_messages_for(f, :given_name) %>
 </div>
 <div>
   <%= f.label :family_name_kana, "フリガナ", class: "required" %>
   <%= f.text_field :family_name_kana, required: true %>
   <%= f.text_field :given_name_kana, required: true %>
+  <%= error_messages_for(f, :family_name_kana) %>
+  <%= error_messages_for(f, :given_name_kana) %>
 </div>

@@ -7,5 +7,14 @@
   <%= full_name_block(ff, :family_name, :given_name, "氏名", required: true) %>
   <%= full_name_block(ff, :family_name_kana, :given_name_kana, "フリガナ", required: true) %>
   <%= date_field_block(ff, :birthday, "生年月日") %>
+  <div class="inpur-block">
+    <%= ff.label(:personal_phones, "電話番号") %>
+    <ol>
+      <% ff.object.personal_phones.each_with_index do |phone, index| %>    
+        <%= render("phone_fields", f: ff, phone: phone, index: index) %>
+      <% end %>
+    </ol>
+  </div>
+
   <%= gender_field_block(ff) %>
 <% end %>

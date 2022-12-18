@@ -9,4 +9,8 @@ class AddressDecorator < ApplicationDecorator
     end
   end
 
+  def phones
+    object.phones.map(&:number)
+  end
+
 end

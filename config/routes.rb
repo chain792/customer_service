@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resource :session, only: [:create, :destroy]
       resource :account, except: [ :new, :create, :destroy ]
       resource :password, only: [:edit, :update]
+      resources :customers
     end
   end
   constraints host: config[:admin][:host] do

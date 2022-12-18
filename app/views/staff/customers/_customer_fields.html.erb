@@ -1,0 +1,11 @@
+<%= f.fields_for :customer, f.object.customer do |ff| %>
+  <%= text_field_block(ff, :email, "メールアドレス", size: 32, required: true) %>
+  <% if ff.object.new_record? %>
+    <%= password_field_block(ff, :password, "パスワード", size: 32, required: true) %>
+    <%= password_field_block(ff, :password_confirmation, "パスワード（確認）", size: 32, required: true) %>
+  <% end %>
+  <%= full_name_block(ff, :family_name, :given_name, "氏名", required: true) %>
+  <%= full_name_block(ff, :family_name_kana, :given_name_kana, "フリガナ", required: true) %>
+  <%= date_field_block(ff, :birthday, "生年月日") %>
+  <%= gender_field_block(ff) %>
+<% end %>

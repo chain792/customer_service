@@ -1,0 +1,28 @@
+<span data-controller="staff--customer">
+  <fieldset id="customer-fields">
+    <legend>基本情報</legend>
+    <%= render "customer_fields", f: f %>
+  </fieldset>
+  <div class="check-bokes">
+    <%= f.check_box :inputs_home_address,
+      "data-action": "click->staff--customer#toggle_home", 
+      "data-staff--customer-target": "home" 
+    %>
+    <%= f.label :inputs_home_address, "自宅住所を入力する" %>
+  </div>
+  <fieldset id="home-address-fields">
+    <legend>自宅住所</legend>
+    <%= render "home_address_fields", f: f %>
+  </fieldset>
+  <div class="check-bokes">
+    <%= f.check_box :inputs_work_address,
+      "data-action": "click->staff--customer#toggle_work", 
+      "data-staff--customer-target": "work" 
+    %>
+    <%= f.label :inputs_work_address, "勤務先を入力する" %>
+  </div>
+  <fieldset id="work-address-fields">
+    <legend>勤務先</legend>
+    <%= render "work_address_fields", f: f %>
+  </fieldset>
+</span>

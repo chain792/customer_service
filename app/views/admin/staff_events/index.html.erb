@@ -1,7 +1,6 @@
 <%
   if @staff_member
-    full_name = @staff_member.family_name + @staff_member.given_name
-    @title = "#{full_name}さんのログイン・ログアウト記録"
+    @title = "#{@staff_member.decorate.full_name}さんのログイン・ログアウト記録"
   else
     @title = "職員のログイン・ログアウト記録"
   end

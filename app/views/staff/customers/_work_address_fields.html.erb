@@ -1,0 +1,17 @@
+<%= f.fields_for :work_address, f.object.customer.work_address do |ff| %>
+  <%= text_field_block(ff, :company_name, "会社名", size: 40, required: true) %>
+  <%= text_field_block(ff, :division_name, "部署名", size: 40) %>
+  <%= postal_code_block(ff, :postal_code, "郵便番号", size: 7) %>
+  <%= drop_down_list_block(ff, :prefecture, "都道府県", Address::PREFECTURE_NAMES) %>
+  <%= text_field_block(ff, :city, "市区町村", size: 16) %>
+  <%= text_field_block(ff, :address1, "町域、番地等", size: 40) %>
+  <%= text_field_block(ff, :address2, "建物名、部屋番号等", size: 40) %>
+  <div class="inpur-block">
+    <%= ff.label(:personal_phones, "電話番号") %>
+    <ol>
+      <% ff.object.phones.each_with_index do |phone, index| %>    
+        <%= render("phone_fields", f: ff, phone: phone, index: index) %>
+      <% end %>
+    </ol>
+  </div>
+<% end %>

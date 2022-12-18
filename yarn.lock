@@ -162,3 +162,8 @@ esbuild@^0.16.4:
     "@esbuild/win32-arm64" "0.16.4"
     "@esbuild/win32-ia32" "0.16.4"
     "@esbuild/win32-x64" "0.16.4"
+
+jquery@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.2.tgz#8302bbc9160646f507bdf59d136a478b312783c4"
+  integrity sha512-/e7ulNIEEYk1Z/l4X0vpxGt+B/dNsV8ghOPAWZaJs8pkGvsSC0tm33aMGylXcj/U7y4IcvwtMXPMyBFZn/gK9A==

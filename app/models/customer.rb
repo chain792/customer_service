@@ -1,10 +1,17 @@
 class Customer < ApplicationRecord
+  include EmailHolder
+  include PersonalNameHolder
+  include PasswordHolder
+
   authenticates_with_sorcery!
 
-  has_one :home_address, dependent: :destroy
-  has_one :work_address, dependent: :destroy
+  has_one :home_address, dependent: :destroy, autosave: true
+  has_one :work_address, dependent: :destroy, autosave: true
 
-  validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
-  validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
-  validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
+  validates :gender, inclusion: { in: %w(male female), allow_blank: true }
+  validates :birthday, date: {
+    after: Date.new(1900, 1, 1),
+    before: ->(obj) { Date.today },
+    allow_blank: true
+  }
 end

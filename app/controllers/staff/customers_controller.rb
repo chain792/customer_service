@@ -23,7 +23,7 @@ class Staff::CustomersController < Staff::Base
       redirect_to action: "index"
     else
       flash.now.alert = "入力に誤りがあります。"
-      render "new"
+      render "new", status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,7 @@ class Staff::CustomersController < Staff::Base
       redirect_to action: "index"
     else
       flash.now.alert = "入力に誤りがあります。"
-      render "edit"
+      render "edit", status: :unprocessable_entity
     end
   end
 

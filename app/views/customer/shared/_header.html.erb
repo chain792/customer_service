@@ -1,3 +1,13 @@
 <header>
-  <span class="logo-mark">BAUKIS2</span>
+  <%= link_to "BAUKIS2", :customer_root, class: "logo-mark" %>
+  <% flash.each do |key, value| %>
+    <%= content_tag(:span, value, class: key) %>
+  <% end %>
+  <%=
+    if current_customer
+      link_to "ログアウト", :customer_session, data: { turbo_method: :delete }
+    else
+      link_to "ログイン", :customer_login
+    end
+  %>
 </header>

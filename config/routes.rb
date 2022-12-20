@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   constraints host: config[:customer][:host] do
     namespace :customer, path: config[:customer][:path] do
       root "top#index"
+      get "login" => "sessions#new"
+      resource :session, only: [:create, :destroy]
     end
   end
 end

@@ -22,6 +22,8 @@
   <%= f.label :addresses_postal_code_eq, "郵便番号:" %>
   <%= f.text_field :addresses_postal_code_eq, size: 7 %>
   <%= f.label :phones_number_for_index_eq, "電話番号:" %>
-  <%= f.text_field :phones_number_for_index_eq %>
+  <%= f.text_field :phones_number_for_index_eq, size: 13 %>
+  <%= f.label :phones_right_four_eq, "電話番号下4桁:" %>
+  <%= f.text_field :phones_right_four_eq, size: 4, maxLength: 4 %>
   <%= f.submit "検索"  %>
 <% end %>

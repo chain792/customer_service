@@ -52,6 +52,8 @@ gem "valid_email2"
 gem "nokogiri"
 gem "sorcery"
 gem 'draper'
+gem 'ransack'
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

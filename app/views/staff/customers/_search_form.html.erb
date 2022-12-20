@@ -1,0 +1,29 @@
+<%= search_form_for @q, url: :staff_customers, class: "search" do |f| %>
+  <%= f.label :family_name_kana_eq, "フリガナ（姓）:" %>
+  <%= f.text_field :family_name_kana_eq %>
+  <%= f.label :given_name_kana_eq, "フリガナ（名）:" %>
+  <%= f.text_field :given_name_kana_eq %>
+  <%= f.label :birth_year_eq, "誕⽣年:" %>
+  <%= f.select :birth_year_eq, (1900..Time.current.year).to_a.reverse, include_blank: true  %>
+  <%= f.label :birth_month_eq, "誕⽣⽉:" %>
+  <%= f.select :birth_month_eq, 1..12, include_blank: true  %>
+  <%= f.label :birth_mday_eq, "誕⽣⽇:" %>
+  <%= f.select :birth_mday_eq, 1..31, include_blank: true  %>
+  <%= f.label :gender_eq, "性別:" %>
+  <%= f.select :gender_eq, [ [ "男性", "male" ], [ "⼥性", "female" ] ], include_blank: true  %>
+  <div>
+    <%= f.label :addresses_type_eq, "住所の検索範囲:" %>
+    <%= f.select :addresses_type_eq, [ [ "⾃宅住所のみ", "HomeAddress" ], [ "勤務先のみ", "WorkAddress" ] ], include_blank: true   %>
+  </div>
+  <%= f.label :addresses_prefecture_eq, "都道府県:" %>
+  <%= f.select :addresses_prefecture_eq, Address::PREFECTURE_NAMES, include_blank: true  %>
+  <%= f.label :addresses_city_eq, "市区町村:" %>
+  <%= f.text_field :addresses_city_eq %>
+  <%= f.label :addresses_postal_code_eq, "郵便番号:" %>
+  <%= f.text_field :addresses_postal_code_eq, size: 7 %>
+  <%= f.label :phones_number_for_index_eq, "電話番号:" %>
+  <%= f.text_field :phones_number_for_index_eq, size: 13 %>
+  <%= f.label :phones_right_four_eq, "電話番号下4桁:" %>
+  <%= f.text_field :phones_right_four_eq, size: 4, maxLength: 4 %>
+  <%= f.submit "検索"  %>
+<% end %>

@@ -15,4 +15,10 @@ class Phone < ApplicationRecord
 
   validates :number, presence: true,
     format:  { with: /\A\+?\d+(-\d+)*\z/, allow_blank: true }
+
+  private
+
+  ransacker :right_four do |parent|
+    Arel.sql("RIGHT(number_for_index, 4)")
+  end 
 end

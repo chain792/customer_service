@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   include ErrorHandlers if Rails.env.production?
   include FormHelper
 
+  rescue_from Forbidden, with: :rescue403
+  rescue_from IpAddressRejected, with: :rescue403
+
   private
 
   def set_layout
@@ -15,5 +18,10 @@ class ApplicationController < ActionController::Base
     else
       "customer"
     end
+  end
+
+  def rescue403(e)
+    @exception = e
+    render "errors/forbidden", status: 403
   end
 end

@@ -1,0 +1,38 @@
+
+<div class="notes">
+  <span class="mark">*</span> 印の付いた項目は入力必須です。
+</div>
+  <%= text_field_block(f, :title, "タイトル", maxlength: 32, required: true) %>
+
+  <% html_class = object.errors.include?(:application_start_time) ? "input-block with-errors" : "input-block" %>
+  <div class="<%= html_class %>">
+    <%= f.label :application_start_date, "申し込み開始⽇時" %>
+    <%= f.date_field :application_start_date %>
+    <%= f.select :application_start_hour, hour_options %>
+    :
+    <%= f.select :application_start_minute, minute_options %>
+    <span class="instruction">現在から1年後まで</span>
+    <%= error_messages_for(f, :application_start_time) %>
+    <%= error_messages_for(f, :application_start_date) %>
+  </div>
+
+  <div class="input-block">
+    <%= f.label :application_end_date, "申し込み終了⽇時" %>
+    <%= f.date_field :application_end_date %>
+    <%= f.select :application_end_hour, hour_options %>
+    :
+    <%= f.select :application_end_minute, minute_options %>
+    <span class="instruction">開始⽇時から90⽇後まで</span>
+    <%= error_messages_for(f, :application_end_time) %>
+    <%= error_messages_for(f, :application_end_date) %>
+  </div>
+
+  <%= number_field_block(f, :min_number_of_participants, "最⼩参加者数", max: 1000, size: 6) %>
+  <%= number_field_block(f, :max_number_of_participants, "最⼤参加者数", max: 1000, size: 6) %>
+
+  <div class="input-block">
+    <%= f.label :description, "詳細", class: "required" %>
+    <%= f.text_area :description, rows: 6, style: "width: 454px" %>
+    <span class="instruction" style="width: 454px">（800⽂字以内）</span>
+    <%= error_messages_for(f, :description) %>
+  </div>

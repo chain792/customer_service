@@ -34,7 +34,7 @@ module FormHelper
         max = number_with_delimiter(options[:max].to_i)
         m.span "（最⼤値: #{max}）", class: "instruction"
       end
-      m << error_messages_for(name)
+      m << error_messages_for(form, name)
     end
   end
 

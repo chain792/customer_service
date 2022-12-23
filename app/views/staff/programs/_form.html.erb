@@ -4,7 +4,7 @@
 </div>
   <%= text_field_block(f, :title, "タイトル", maxlength: 32, required: true) %>
 
-  <% html_class = object.errors.include?(:application_start_time) ? "input-block with-errors" : "input-block" %>
+  <% html_class = f.object.errors.include?(:application_start_time) ? "input-block with-errors" : "input-block" %>
   <div class="<%= html_class %>">
     <%= f.label :application_start_date, "申し込み開始⽇時" %>
     <%= f.date_field :application_start_date %>
@@ -16,7 +16,8 @@
     <%= error_messages_for(f, :application_start_date) %>
   </div>
 
-  <div class="input-block">
+  <% html_class = f.object.errors.include?(:application_end_time) ? "input-block with-errors" : "input-block" %>
+  <div class="<%= html_class %>">
     <%= f.label :application_end_date, "申し込み終了⽇時" %>
     <%= f.date_field :application_end_date %>
     <%= f.select :application_end_hour, hour_options %>

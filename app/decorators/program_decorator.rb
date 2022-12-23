@@ -11,18 +11,18 @@ class ProgramDecorator < ApplicationDecorator
 
   def max_number_of_participants
     if object.max_number_of_participants
-      number_with_delimiter(object.max_number_of_participants)
+      h.number_with_delimiter(object.max_number_of_participants)
     end
   end
 
   def min_number_of_participants
     if object.min_number_of_participants
-      number_with_delimiter(object.min_number_of_participants)
+      h.number_with_delimiter(object.min_number_of_participants)
     end
   end
 
   def number_of_applicants
-    number_with_delimiter(object[:number_of_applicants])
+    h.number_with_delimiter(object[:number_of_applicants])
   end
 
   def registrant

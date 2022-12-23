@@ -24,6 +24,10 @@ class Staff::ProgramsController < Staff::Base
       flash.notice = "プログラムを登録しました。"
       redirect_to action: "index"
     else
+      
+      binding.pry
+      
+      
       flash.now.alert = "⼊⼒に誤りがあります。"
       render action: "new", status: :unprocessable_entity
     end

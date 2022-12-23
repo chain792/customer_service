@@ -9,3 +9,5 @@ application.register("hello", HelloController)
 
 import Staff__CustomerController from "./staff/customer_controller"
 application.register("staff--customer", Staff__CustomerController)
+import Staff__EntryController from "./staff/entry_controller"
+application.register("staff--entry", Staff__EntryController)

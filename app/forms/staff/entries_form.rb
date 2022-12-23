@@ -41,4 +41,3 @@ class Staff::EntriesForm
     end
   end
 end
-Footer

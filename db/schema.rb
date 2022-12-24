@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_20_135914) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_24_062340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_135914) do
     t.index "lower((email)::text)", name: "index_administrators_on_LOWER_email", unique: true
   end
 
+  create_table "allowed_sources", force: :cascade do |t|
+    t.string "namespace", null: false
+    t.integer "octet1", null: false
+    t.integer "octet2", null: false
+    t.integer "octet3", null: false
+    t.integer "octet4", null: false
+    t.boolean "wildcard", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["namespace", "octet1", "octet2", "octet3", "octet4"], name: "index_allowed_sources_on_namespace_and_octets", unique: true
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "family_name", null: false
     t.string "given_name", null: false
@@ -74,6 +86,60 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_135914) do
     t.index ["given_name_kana"], name: "index_customers_on_given_name_kana"
   end
 
+  create_table "entries", force: :cascade do |t|
+    t.bigint "program_id", null: false
+    t.bigint "customer_id", null: false
+    t.boolean "approved", default: false, null: false
+    t.boolean "canceled", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_entries_on_customer_id"
+    t.index ["program_id", "customer_id"], name: "index_entries_on_program_id_and_customer_id", unique: true
+  end
+
+  create_table "hash_locks", force: :cascade do |t|
+    t.string "table", null: false
+    t.string "column", null: false
+    t.string "key", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["table", "column", "key"], name: "index_hash_locks_on_table_and_column_and_key", unique: true
+  end
+
+  create_table "message_tag_links", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id", "tag_id"], name: "index_message_tag_links_on_message_id_and_tag_id", unique: true
+    t.index ["message_id"], name: "index_message_tag_links_on_message_id"
+    t.index ["tag_id"], name: "index_message_tag_links_on_tag_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.bigint "staff_member_id"
+    t.integer "root_id"
+    t.integer "parent_id"
+    t.string "type", null: false
+    t.string "status", default: "new", null: false
+    t.string "subject", null: false
+    t.text "body"
+    t.text "remarks"
+    t.boolean "discarded", default: false, null: false
+    t.boolean "deleted", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id", "deleted", "created_at"], name: "index_messages_on_customer_id_and_deleted_and_created_at"
+    t.index ["customer_id", "deleted", "status", "created_at"], name: "index_messages_on_c_d_s_c"
+    t.index ["customer_id", "discarded", "created_at"], name: "index_messages_on_customer_id_and_discarded_and_created_at"
+    t.index ["customer_id"], name: "index_messages_on_customer_id"
+    t.index ["root_id", "deleted", "created_at"], name: "index_messages_on_root_id_and_deleted_and_created_at"
+    t.index ["staff_member_id"], name: "index_messages_on_staff_member_id"
+    t.index ["type", "customer_id"], name: "index_messages_on_type_and_customer_id"
+    t.index ["type", "staff_member_id"], name: "index_messages_on_type_and_staff_member_id"
+  end
+
   create_table "phones", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.bigint "address_id"
@@ -86,6 +152,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_135914) do
     t.index ["address_id"], name: "index_phones_on_address_id"
     t.index ["customer_id"], name: "index_phones_on_customer_id"
     t.index ["number_for_index"], name: "index_phones_on_number_for_index"
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.integer "registrant_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.datetime "application_start_time", null: false
+    t.datetime "application_end_time", null: false
+    t.integer "min_number_of_participants"
+    t.integer "max_number_of_participants"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["application_start_time"], name: "index_programs_on_application_start_time"
+    t.index ["registrant_id"], name: "index_programs_on_registrant_id"
   end
 
   create_table "staff_events", force: :cascade do |t|
@@ -114,8 +194,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_135914) do
     t.index ["family_name_kana", "given_name_kana"], name: "index_staff_members_on_family_name_kana_and_given_name_kana"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["value"], name: "index_tags_on_value", unique: true
+  end
+
   add_foreign_key "addresses", "customers"
+  add_foreign_key "entries", "customers"
+  add_foreign_key "entries", "programs"
+  add_foreign_key "messages", "customers"
+  add_foreign_key "messages", "messages", column: "parent_id"
+  add_foreign_key "messages", "messages", column: "root_id"
+  add_foreign_key "messages", "staff_members"
   add_foreign_key "phones", "addresses"
   add_foreign_key "phones", "customers"
+  add_foreign_key "programs", "staff_members", column: "registrant_id"
   add_foreign_key "staff_events", "staff_members"
 end

@@ -1,3 +1,15 @@
+Customer.create!(
+  email: "taro@example.com",
+  family_name: "山田",
+  given_name: "太郎",
+  family_name_kana: "ヤマダ",
+  given_name_kana: "タロウ",
+  password: "password",
+  password_confirmation: "password",
+  birthday: 10.years.ago,
+  gender: "male"
+)
+
 city_names = %w(青巻市 赤巻市 黄巻市)
 
 family_names = %w{

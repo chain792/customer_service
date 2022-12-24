@@ -6,11 +6,19 @@ Rails.application.routes.draw do
       root "top#index"
       get "login" => "sessions#new"
       resource :session, only: [:create, :destroy]
-      resource :account, except: [ :new, :create, :destroy ]
+      resource :account, except: [ :new, :create, :destroy ] do
+        patch :confirm
+      end
       resource :password, only: [:edit, :update]
       resources :customers
+      resources :programs do
+        resources :entries, only: [] do
+          patch :update_all, on: :collection
+        end
+      end
     end
   end
+
   constraints host: config[:admin][:host] do
     namespace :admin, path: config[:admin][:path] do
       root "top#index"
@@ -20,12 +28,25 @@ Rails.application.routes.draw do
         resources :staff_events, only: [:index, :show]
       end
       resources :staff_events, only: [:index]
+      resources :allowed_sources, only: [ :index, :create ] do
+        delete :delete, on: :collection
+      end
     end
   end
 
   constraints host: config[:customer][:host] do
     namespace :customer, path: config[:customer][:path] do
       root "top#index"
+      get "login" => "sessions#new"
+      resource :session, only: [:create, :destroy]
+      resource :account, except: [ :new, :create, :destroy ] do
+        patch :confirm
+      end
+      resources :programs, only: [ :index, :show ] do
+        resource :entry, only: [ :create ] do
+          patch :cancel
+        end
+      end
     end
   end
 end

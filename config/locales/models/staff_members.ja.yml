@@ -3,8 +3,6 @@ ja:
     attributes:
       staff_member:
         email: メールアドレス
-        password: パスワード
-        password_confirmation: パスワード（確認）
         family_name: 氏名（姓）
         given_name: 氏名（名）
         family_name_kana: フリガナ（姓）

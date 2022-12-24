@@ -6,7 +6,9 @@ Rails.application.routes.draw do
       root "top#index"
       get "login" => "sessions#new"
       resource :session, only: [:create, :destroy]
-      resource :account, except: [ :new, :create, :destroy ]
+      resource :account, except: [ :new, :create, :destroy ] do
+        patch :confirm
+      end
       resource :password, only: [:edit, :update]
       resources :customers
       resources :programs do
@@ -16,6 +18,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
   constraints host: config[:admin][:host] do
     namespace :admin, path: config[:admin][:path] do
       root "top#index"
@@ -36,6 +39,14 @@ Rails.application.routes.draw do
       root "top#index"
       get "login" => "sessions#new"
       resource :session, only: [:create, :destroy]
+      resource :account, except: [ :new, :create, :destroy ] do
+        patch :confirm
+      end
+      resources :programs, only: [ :index, :show ] do
+        resource :entry, only: [ :create ] do
+          patch :cancel
+        end
+      end
     end
   end
 end

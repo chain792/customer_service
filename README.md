@@ -1,24 +1,7 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ruby on Rails 6 実践ガイド
+Ruby on Rails 6 実践ガイド:機能拡張編
+をもとに作成したアプリ
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+rails7系で構築したりsorceryやdraper、ransackなどのgemを使用したりと多少アレンジを加えつつ作成しました。
